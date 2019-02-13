@@ -24,4 +24,19 @@ public class KnightBoard{
     }
     return s;
   }
+  public boolean solve(int startingRows,int startingCols){
+    if(startingCols < 0 || startingCols < 0){
+      throw new IllegalArgumentException();
+    }
+    for (int[] row :board ) {
+      for (int num: row){
+        if(num != 0 ){
+          throw new IllegalStateException();
+        }
+      }
+    }
+
+    return true;
+  }
+
 }
