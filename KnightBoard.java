@@ -1,5 +1,6 @@
 public class KnightBoard{
-  int[][] board;
+  private int[][] board;
+  private static final int[][] directions = {{1,2},{2,1},{2,-1},{-2,1},{-1,-2},{-2,-1},{-2,1},{-1,2}};
   public KnightBoard(int startingRows,int startingCols){
     if(startingCols < 0 || startingCols < 0){
       throw new IllegalArgumentException();
@@ -36,7 +37,22 @@ public class KnightBoard{
       }
     }
 
-    return true;
+    return solveH(startingRows,startingCols,0);
   }
-
+  public boolean solveH(int row, int col, int level){
+    if(level == board.length * board[0].length){
+      return true;
+    }
+    for (int[] direction : directions) {
+      if(row + direction[0] >= 0 && row + direction[0] < board.length
+        && col + direction[1] >= 0 && col + direction[1] < board[0].length){
+          board[row + direction[0]][col + direction[1]] = level +1;
+          if(solveH(row + direction[0], col + direction[1], level + 1)){
+            return true;
+          }
+          //board[row + direction[0]][col + direction[1]] = 0;
+        }
+    }
+    return false;
+  }
 }
