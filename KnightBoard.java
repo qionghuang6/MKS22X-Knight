@@ -114,12 +114,14 @@ public class KnightBoard{
         }
     }
     Arrays.sort(moves, (a, b) -> Double.compare(a[2], b[2]));
+    /*
     for (int[]  m: moves) {
       System.out.print(Arrays.toString(m));
       System.out.print(" ");
     }
     System.out.println();
     System.out.println(this);
+    */
     for (int[] move: moves) {
       if (move[2] != 0 && board[row + move[0]][col + move[1]] == 0) {
         heatMap[row + move[0]][col + move[1]]--;
