@@ -125,11 +125,26 @@ public class KnightBoard{
 
     for (int[] move: moves) {
       if (move[2] != 0 && board[row + move[0]][col + move[1]] == 0) {
-        heatMap[row + move[0]][col + move[1]]--;
+        int original = heatMap[row + move[0]][col + move[1]];
+        for (int[] m: moves) {
+          try {
+            heatMap[row + move[0]][col + move[1]]--;
+          } catch(ArrayIndexOutOfBoundsException e) {
+
+          }
+        }
+        heatMap[row + move[0]][col + move[1]] = 0;
         if(solveOpt(row + move[0], col + move[1], level + 1)){
             return true;
         }
-        heatMap[row +move[0]][col + move[1]]++;
+        for (int[] m: moves) {
+          try {
+            heatMap[row + move[0]][col + move[1]]++;
+          } catch(ArrayIndexOutOfBoundsException e) {
+
+          }
+        }
+        heatMap[row +move[0]][col + move[1]] = original;
       }
     }
     board[row][col] = 0;
