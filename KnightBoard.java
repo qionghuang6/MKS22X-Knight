@@ -1,11 +1,28 @@
 public class KnightBoard{
   private int[][] board;
+  private int[][] heatMap;
   private static final int[][] directions = {{1,2},{2,1},{2,-1},{1,-2},{-1,-2},{-2,-1},{-2,1},{-1,2}};
   public KnightBoard(int startingRows,int startingCols){
     if(startingCols < 0 || startingCols < 0){
       throw new IllegalArgumentException();
     }
     board = new int[startingRows][startingCols];
+    heatMap = new int[startingRows][startingCols];
+    heatMapMaker();
+  }
+  private void heatMapMaker(){
+    for (int r = 0; r < board.length ;r++ ) {
+      for (int c = 0;c < board[r].length ;c++ ) {
+        int possibilities = 0;
+        for (int[] direction : directions) {
+          if(r + direction[0] >= 0 && r + direction[0] < board.length
+            && c + direction[1] >= 0 && c + direction[1] < board[0].length){
+              possibilities++;
+          }
+        }
+        heatMap[r][c] = possibilities;
+      }
+    }
   }
   public String toString(){
     String s = "";
@@ -22,6 +39,17 @@ public class KnightBoard{
       if(r != board.length - 1){
         s += "\n";
       }
+    }
+    return s;
+  }
+  public String heatToString(){
+    String s = "";
+    for (int[] row: heatMap) {
+      for (int no: row) {
+        s += no;
+        s+= " ";
+      }
+      s += "\n";
     }
     return s;
   }
@@ -56,7 +84,7 @@ public class KnightBoard{
 
   private boolean solveH(int row, int col, int level){
     board[row][col] = level + 1;
-    if(level + 1 == board.length * board[0].length){
+    if(level + 1 >= board.length * board[0].length){
       return true;
     }
     for (int[] direction : directions) {
