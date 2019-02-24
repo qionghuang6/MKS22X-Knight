@@ -122,6 +122,7 @@ public class KnightBoard{
     System.out.println();
     System.out.println(this);
     */
+
     for (int[] move: moves) {
       if (move[2] != 0 && board[row + move[0]][col + move[1]] == 0) {
         heatMap[row + move[0]][col + move[1]]--;
