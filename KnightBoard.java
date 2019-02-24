@@ -1,3 +1,4 @@
+import java.util.Arrays;
 public class KnightBoard{
   private int[][] board;
   private int[][] heatMap;
@@ -65,7 +66,7 @@ public class KnightBoard{
       }
     }
 
-    return solveH(startingRows,startingCols,0);
+    return solveOpt(startingRows,startingCols,0);
   }
 
   public int countSolutions(int startRow, int startCol){
@@ -94,6 +95,39 @@ public class KnightBoard{
         solveH(row + direction[0], col + direction[1], level + 1)){
             return true;
         }
+    }
+    board[row][col] = 0;
+    return false;
+  }
+  private boolean solveOpt(int row, int col, int level){
+    board[row][col] = level + 1;
+    if(level + 1 >= board.length * board[0].length){
+      return true;
+    }
+    int[][] moves = new int[8][3];
+    for (int i =0;i < 8 ;i++ ) {
+      moves[i][0] = directions[i][0];
+      moves[i][1] = directions[i][1];
+      if(row + directions[i][0] >= 0 && row + directions[i][0] < board.length &&
+        col + directions[i][1] >= 0 && col + directions[i][1] < board[0].length){
+          moves[i][2] = heatMap[row + directions[i][0]][col + directions[i][1]];
+        }
+    }
+    Arrays.sort(moves, (a, b) -> Double.compare(a[2], b[2]));
+    for (int[]  m: moves) {
+      System.out.print(Arrays.toString(m));
+      System.out.print(" ");
+    }
+    System.out.println();
+    System.out.println(this);
+    for (int[] move: moves) {
+      if (move[2] != 0 && board[row + move[0]][col + move[1]] == 0) {
+        heatMap[row + move[0]][col + move[1]]--;
+        if(solveOpt(row + move[0], col + move[1], level + 1)){
+            return true;
+        }
+        heatMap[row +move[0]][col + move[1]]++;
+      }
     }
     board[row][col] = 0;
     return false;
