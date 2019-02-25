@@ -66,7 +66,7 @@ public class KnightBoard{
       }
     }
 
-    return solveOpt(startingRows,startingCols,0);
+    return solveH(startingRows,startingCols,0);
   }
 
   public int countSolutions(int startRow, int startCol){
@@ -80,7 +80,7 @@ public class KnightBoard{
         }
       }
     }
-    return countSolutionsR(0,0,0);
+    return countSolutionsR(startRow,startCol,0);
   }
 
   private boolean solveH(int row, int col, int level){
