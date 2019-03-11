@@ -74,7 +74,7 @@ public class KnightBoard{
       }
     }
 
-    return solveH(startingRows,startingCols,0);
+    return solveOpt(startingRows,startingCols,0);
   }
   //checks for valid arguments before calling recursive helper
   public int countSolutions(int startRow, int startCol){
